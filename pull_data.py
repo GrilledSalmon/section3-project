@@ -1,4 +1,5 @@
 # DB에 저장할 데이터를 pulling하는 파일입니다.
+# N을 통해해 검색 대상 종목의 수를 조절할 수 있습니다.
 import pandas as pd
 import numpy as np
 import FinanceDataReader as fdr
@@ -16,7 +17,7 @@ date_list_for_PER = date_list
 
 date_start = '20200102' # 1년의 데이터는 확보하기 위해서
 
-N = 10 # 시가총액 상위 N 종목
+N = 1000 # 시가총액 상위 N 종목
 
 df = pd.read_csv('./data/{}_total_stock.csv'.format(std_date), encoding='euc-kr')
 
@@ -25,6 +26,7 @@ top_code = df.sort_values(by='시가총액', ascending=False).head(N).종목코�
 
 # 종목코드를 가지고 종목명을 찾을 수 있는 dictionary
 code_to_name_dic = df[['종목코드', '종목명']].set_index('종목코드').to_dict()['종목명']
+name_to_code_dic = df[['종목코드', '종목명']].set_index('종목명').to_dict()['종목코드']
 
 KOSPI = fdr.DataReader('KS11', date_start)
 

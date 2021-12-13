@@ -1,3 +1,4 @@
+# pull_data.py에서 가져온 데이터를 DB에 저장합니다.
 import sqlite3
 from pull_data import data
 
