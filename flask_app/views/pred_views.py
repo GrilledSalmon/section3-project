@@ -50,7 +50,7 @@ def get_pred():
       # pred_res = str(pred_res)
       # print(pred_res)
 
-      message = f"""당신의 종목이 6개월 뒤 코스피보다 많이 상승할 확률은 {pred_res*100:.2f}% 입니다!"""
+      message = f"""당신의 종목이 6개월 뒤 코스피보다 더 상승할 확률은 {pred_res*100:.2f}% 입니다!"""
       print(message)
       return message, 200
 
