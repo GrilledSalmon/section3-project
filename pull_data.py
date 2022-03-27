@@ -1,5 +1,5 @@
 # DB에 저장할 데이터를 pulling하는 파일입니다.
-# N을 통해해 검색 대상 종목의 수를 조절할 수 있습니다.
+# N의 값을 수정해 검색 대상 종목의 수를 조절할 수 있습니다.
 import pandas as pd
 import numpy as np
 import FinanceDataReader as fdr
@@ -8,7 +8,7 @@ import warnings
 
 warnings.filterwarnings(action='ignore')
 
-# 20211210 기준
+# 주식 기준일
 std_date = '20211210'
 
 date_list = [std_date]
@@ -19,7 +19,7 @@ date_start = '20200102' # 1년의 데이터는 확보하기 위해서
 
 N = 1000 # 시가총액 상위 N 종목
 
-df = pd.read_csv('./data/{}_total_stock.csv'.format(std_date), encoding='euc-kr')
+df = pd.read_csv('./data/{}_total_stock.csv'.format(std_date), encoding='euc-kr') # 한국거래소 > 정보데이터 시스템 > 전종목 시세
 
 # 시가총액 상위 N종목 코드 리스트
 top_code = df.sort_values(by='시가총액', ascending=False).head(N).종목코드.to_list()
