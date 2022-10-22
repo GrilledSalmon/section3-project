@@ -5,6 +5,7 @@ import numpy as np
 import FinanceDataReader as fdr
 from datetime import datetime, timedelta
 import warnings
+import yfinance as yf
 
 warnings.filterwarnings(action='ignore')
 
@@ -33,7 +34,9 @@ def pull_data(std_date, date_start, N):
     code_to_name_dic = df[['종목코드', '종목명']].set_index('종목코드').to_dict()['종목명']
     name_to_code_dic = df[['종목코드', '종목명']].set_index('종목명').to_dict()['종목코드']
 
-    KOSPI = fdr.DataReader('KS11', date_start)
+    # KOSPI = fdr.DataReader('KS11', date_start)
+    KOSPI = yf.download('^KS11', date_start[:4]+'-'+date_start[4:6] + '-' + date_start[6:])
+
 
     # 종목코드별 주가 데이터 dictionary에 저장
     stock_price_dic = {}
@@ -164,10 +167,10 @@ def pull_data(std_date, date_start, N):
     return data
 
 
-# 이것만 조정해주고 한국거래소에서 std_date 기준 전종목 시세, PER 데이터 받아주면 됨
+# 이것만 조정해주고 한국거래소에서 std_date 기준 전종목 시세, PER 데이터 받아서 최상위에 있는 data 디렉토리에 넣어주면 됨
 if __name__ == "__main__":
-    std_date = '20190603' # 주식 기준일
-    date_start = '20180110' # 1년의 데이터는 확보하기 위해서
+    std_date = '20221021' # 주식 기준일
+    date_start = '20200110' # 1년의 데이터는 확보하기 위해서
     N = 1000 # 시가총액 상위 N 종목
 
     data = pull_data(std_date, date_start, N)
